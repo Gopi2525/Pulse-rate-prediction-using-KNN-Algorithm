@@ -1,0 +1,31 @@
+import serial
+import numpy as np
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+data = pd.read_csv(r'C:\Users\bajar\Downloads\newpulse.csv')
+
+# Split the dataset into features and labels
+X = data.iloc[:, :-1].values
+y = data.iloc[:, -1].values
+
+# Create a KNN classifier object
+k = 4
+clf = KNeighborsClassifier(n_neighbors=k)
+# Train the classifier on the data
+clf.fit(X, y)
+
+ser = serial.Serial('COM3', 9600) # Replace 'COM3' with your serial port name and 9600 with your baud rate
+
+for i in range(50000):
+     if i>5:
+     #if ser.in_waiting > 0:
+          ##  input_data = ser.readline().decode('utf-8').strip()
+
+       line = ser.readline()  # read a byte
+       if line:
+           input_data = line.decode()
+
+           test_data = np.array([input_data.split()], dtype=int)
+           print(type(input_data))
+           prediction = clf.predict(test_data)
+           print(prediction)
