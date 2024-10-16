@@ -2,7 +2,7 @@ import serial
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-data = pd.read_csv(r'C:\Users\bajar\Downloads\newpulse.csv')
+data = pd.read_csv(r'filepath')
 
 # Split the dataset into features and labels
 X = data.iloc[:, :-1].values
